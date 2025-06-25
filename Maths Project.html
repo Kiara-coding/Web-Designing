@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+h1{color:#cda366 ; font-family:French Script MT ; font-size:30pt}
+#score{background-color:white ; width:125px }
+</style>
+<script>
+var operation= ""
+var difficulty= ""
+function selectOperation () {
+operation=document.f1.operation.value
+}
+var n1=0
+var n2=0
+var score=0
+var numquestions=0
+function createQuestion () {
+console.log(operation)
+console.log(difficulty)
+if (operation=="" || difficulty=="")
+{
+alert ("Select the operation and the difficulty level")
+}
+else 
+{
+if (difficulty=="easy")
+{
+n1=Math.floor(Math.random() * (10 - 1) + 1);
+n2=Math.floor(Math.random() * (10 - 1) + 1);
+}
+else if (difficulty=="medium")
+{
+n1=Math.floor(Math.random() * (20 - 1) + 1);
+n2=Math.floor(Math.random() * (20 - 1) + 1);
+}
+else if (difficulty=="hard")
+{
+n1=Math.floor(Math.random() * (50 - 30) + 30);
+n2=Math.floor(Math.random() * (50 - 30) + 30);
+}
+else if (difficulty=="extremely hard")
+{
+n1=Math.floor(Math.random() * (200 - 50) + 50);
+n2=Math.floor(Math.random() * (200 - 50) + 50);
+}
+document.getElementById("question").innerText=n1+operation+n2
+numquestions+=1
+if (numquestions>10)
+{
+document.getElementById ("next").style.visibility="hidden"
+document.getElementById ("check").style.visibility="hidden"
+document.getElementById ("submit").style.visibility="visible"
+document.getElementById ("question").innerText=" "
+}
+else 
+{
+document.getElementById ("next").style.visibility="hidden"
+document.getElementById ("check").style.visibility="visible"
+}
+}
+}
+function selectDifficulty () {
+difficulty=document.f1.difficulty.value
+createQuestion ()
+}
+function checkAnswer () {
+ans=parseInt (document.getElementById( "answer").value)
+correctAnswer=0
+if (operation=="+")
+{
+correctAnswer=n1+n2
+}
+else if (operation=="-")
+{
+correctAnswer=n1-n2
+}
+else if (operation=="*")
+{
+correctAnswer=n1*n2
+}
+if (correctAnswer==ans)
+{
+score=score+1
+document.getElementById ("next").style.visibility="visible"
+document.getElementById ("check").style.visibility="hidden"
+document.getElementById("score").innerText="Score="+score 
+}
+else
+{
+document.getElementById ("next").style.visibility="visible"
+document.getElementById ("check").style.visibility="hidden"
+}
+}
+function finalsubmit(){
+if (score>=0 && score<=3)
+{
+alert ("Good try!")
+}
+else if (score>=4 && score<=6)
+{
+alert ("Good job!")
+}
+else if (score>=7 && score<=9)
+{
+alert ("Fantastic job!")
+}
+else
+{
+alert ("You are a math a magican!")
+}
+document.getElementById ("next").style.visibility="hidden"
+document.getElementById ("check").style.visibility="hidden"
+document.getElementById ("submit").style.visibility="hidden"
+document.getElementById ("answer").value=" "
+document.getElementById ("question").innerText=" "
+}
+</script>
+</head>
+<body background="math background.jpg">
+<marquee behavior=alternate> <h1> Welcome to my Maths Magic </h1> </marquee>
+<h3> Select the operation you would like to do.<h3>
+<form name=f1>
+<input type=radio name=operation value="+" onclick="selectOperation ()">Addition
+<input type=radio name=operation value="-" onclick="selectOperation ()">Subtraction
+<input type=radio name=operation value="*" onclick="selectOperation ()">Multiplication 
+
+<h3> Select the difficulty you would like to do.<h3>
+<input type=radio name=difficulty value=easy onclick="selectDifficulty ()">Easy
+<input type=radio name=difficulty value=medium onclick="selectDifficulty ()">Medium
+<input type=radio name=difficulty value=hard onclick="selectDifficulty ()">Hard
+<input type=radio name=difficulty value="extremely hard" onclick="selectDifficulty ()"><b><font color=red size=5px>Extremely Hard</font><b>
+<br>
+<br>
+<p id=question> </p>
+<br>
+<br>
+<input type=text id=answer placeholder="Enter your answer here">
+<br>
+<br>
+<input type=button value=Check onclick="checkAnswer ()" id=check style="visibility:hidden">
+<br>
+<br>
+<input type=button value=Next onclick="createQuestion ()" id=next style="visibility:hidden"> 
+<br>
+<br>
+<input type=button value=Submit id=submit style="visibility:hidden" onclick=finalsubmit()> 
+<h2 id=score>Score=0</h2>
+</form>
+</body>
