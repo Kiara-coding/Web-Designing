@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body background= "hangman9.jpg">
+<p id=alphabet style="font-size:20pt ; font-family:High Tower Text" ></p>
+<input type=text id=userinput>
+<input type=button value=check onclick=checkalphabet()>
+<br>
+<br>
+<img id=result height=500px width=500px src="HANGMAN.png">
+<script>
+var words=["marvellous", "hangman", "persuasive", "figure", "beauty", "marmalade","sanitiser","watercolour","dysfunctional","hippopotamus","rhinocerous","encyclopedia"]
+var position=Math.floor(Math. random() * (words.length-1 - 0) + 0)
+var word=words[position]
+var blanks=[ ]
+
+var guess=8
+var str=""
+for (counter=0 ; counter<word.length ; counter=counter+1)
+{
+blanks.push("_")
+str+="_ "
+}
+document.getElementById ("alphabet").innerText=str
+function checkalphabet(){
+found=false
+var alphabet=document.getElementById("userinput").value
+for (counter=0 ; counter<word.length ; counter=counter+1)
+{
+if ( word.charAt(counter)==alphabet && guess>0)
+{
+blanks[counter]=alphabet
+found=true
+}
+}
+if (found==false)
+{
+guess=guess-1
+if (guess==7)
+{
+document.getElementById("result").src="hangman1.jpg"
+}
+else if (guess==6)
+{
+document.getElementById("result").src="hangman2.jpg"
+}
+else if (guess==5)
+{
+document.getElementById("result").src="hangman3.jpg"
+}
+else if (guess==4)
+{
+document.getElementById("result").src="hangman4.jpg"
+}
+else if (guess==3)
+{
+document.getElementById("result").src="hangman5.jpg"
+}
+else if (guess==2)
+{
+document.getElementById("result").src="hangman6.jpg"
+}
+else if (guess==1)
+{
+document.getElementById("result").src="hangman7.jpg"
+}
+else 
+{
+document.getElementById("result").src="hangman8.jpg"
+}
+}
+let s=" "
+for (j=0;j<blanks.length;j++) 
+s=s+blanks[j]+" "
+document.getElementById("alphabet").innerText=s
+document.getElementById("userinput").value=""
+if (blanks.indexOf("_")==-1)
+{
+document.getElementById("result").src="https://static.vecteezy.com/system/resources/previews/007/740/829/non_2x/balloons-with-confetti-and-text-congratulations-you-win-vector.jpg"
+}
+}
+</script>
+</body>
+</html>
